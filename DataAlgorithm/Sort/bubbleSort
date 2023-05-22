@@ -1,0 +1,7 @@
+#bubbleSort
+def bubbleSortRec(A, n): # 버블정렬 재귀 함수
+    for i in range(n-1): # 0부터 n-1까지 반복
+        if A[i] > A[i+1]: # 인접한 두 요소 비교
+            A[i], A[i+1] = A[i+1], A[i] # 앞의 요소가 더 크다면 위치 바꿈
+    if n > 1: # n이 1보다 큰 경우
+        bubbleSortRec(A, n-1) # n이 1보다 작아질 때까지 반복
