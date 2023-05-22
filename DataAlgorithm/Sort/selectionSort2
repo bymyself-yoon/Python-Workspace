@@ -1,0 +1,12 @@
+#selectionSortRec2
+def selectionSortRec2(A, n):
+    if n<2 :
+        for i in range(1, 300):
+            if A[i] == A[0]:
+                A.insert(i, A.pop(0))
+                break
+        return
+        
+    k = A.index(max(A[:n-1]))
+    A.insert(n-1, A.pop(k))
+    selectionSortRec2(A, n-1)
