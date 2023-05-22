@@ -1,0 +1,20 @@
+#quickSortFast - 연습문제 17
+def quickSortFast(A:list, p, r):
+    if p < r:
+        q = partition2(A, p, r)
+        quickSortFast(A, p, q-1)
+        quickSortFast(A, q+1, r)
+
+def partition2(A:list, p, r):
+    x = A[r] # 맨 마지막 원소를 x로 잡는다.
+    i = p-1
+    for j in range(p, r):
+        if A[j] < x:
+            i += 1
+            A[i], A[j] = A[j], A[i]
+        if A[j] == x: # x와 같은 원소인 경우
+            if j % 2 == 1: # 홀수인 경우, 짝수일 때는 아무 연산도 하지 않음 -> 속도 증가
+                i += 1 # 왼쪽 인덱스를 1 올리고
+                A[i], A[j] = A[j], A[i] # i와 j 교환
+    A[i+1], A[r] = A[r], A[i+1]
+    return i+1
