@@ -1,0 +1,25 @@
+#shellSort
+def shellSort(A): # A[0, ..., n-1] : 정렬할 리스트
+    H = gapSequence(len(A)) # gapSequence 함수 호출해서 H 초기화
+    for h in H: # H = [h0, h1, ..., 1] : 갭 수열
+        for k in range(h): # k를 h-1까지 반복
+            stepInsertionSort(A, k, h) # A의 k부터 시작하여 갭 h로 정렬
+
+def stepInsertionSort(A, k:int, h:int): # A[k, k+h, k+2h, ...] 정렬
+    for i in range(k+h, len(A), h): # i를 k+h부터 A의 길이까지 h씩 증가하며 반복
+        j = i - h # j를 i-h로 초기화
+        newItem = A[i] # A[i] 저장
+        # A[..., j-2h, j-h, j]는 이미 정렬된 상태
+        # A[..., j-2h, j-h, j, j+h]의 맞는 곳에 A[j+h] 삽입
+        while 0 <= j and newItem < A[j]: # j가 0 이상, A[j]보다 작을 때까지
+            A[j + h] = A[j] # A[j]를 A[j+h]로 이동 -> 삽입 위치를 만들기 위함
+            j -= h # j를 j-h로 변경
+        A[j + h] = newItem # newItem을 삽입
+
+def gapSequence(n:int) -> list: # 갭 수열 만들기
+    H = [1]; gap = 1 # 갭수열 저장할 리스트 H의 초기값 1 설정
+    while gap < n/5: # n/5보다 작은 동안 반복
+        gap = 3 * gap + 1 # 1, 4, 13, ...
+        H.append(gap) # 생성된 갭 값 추가
+    H.reverse() # H 리스트 순서 뒤집기
+    return H # 리턴값 H 반환
