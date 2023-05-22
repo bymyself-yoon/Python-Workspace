@@ -1,0 +1,16 @@
+#quickSort
+def quickSort(A, p:int, r:int): # 퀵정렬 재귀 함수, p(시작), q(끝)
+    if p < r: # 정렬이 1개 이상 있는지 확인
+        q = partition(A, p, r) # 분할
+        quickSort(A, p, q-1) # 왼쪽 부분 리스트 정렬
+        quickSort(A, q+1, r) # 오른쪽 부분 리스트 정렬
+
+def partition(A, p:int, r:int) -> int: # 분할 함수
+    x = A[r] # x: 기준 원소
+    i = p-1 # i: 1구역의 끝 지점
+    for j in range(p, r): # j: 2구역의 시작 지점
+        if A[j] < x: # j번째 요소가 x보다 작으면
+            i += 1 # i 증가
+            A[i], A[j] = A[j], A[i] # 2구역 첫번째 원소와 3구역 첫번째 원소 교환
+    A[i+1], A[r] = A[r], A[i+1] # 기준 원소와 2구역 첫 원소 교환
+    return i+1
