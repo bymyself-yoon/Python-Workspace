@@ -1,0 +1,11 @@
+#insertionSort
+def insertionSortRec(A, start, end): # 삽입정렬 재귀 함수, start(시작지점), end(끝지점)
+    value = A[start] # 정렬의 첫번째 요소 'value'에 저장
+    loc = start # 삽입할 위치 찾기. start 값 넣고 시작
+    while loc > 0 and A[loc-1] > value: # loc이 0보다 크고 이전요소가 value보다 큰 경우 반복
+        A[loc] = A[loc - 1] # A[loc]에 A[loc - 1] 값 대입하여 왼쪽으로 쉬프트
+        loc -= 1 # 정렬하는 원소의 위치 왼쪽으로 이동
+    A[loc] = value # 정해진 삽입위치에 삽입하고자 하는 원소 삽입
+
+    if start + 1 < end: # 삽입되는 위치가 가장 마지막 위치까지 
+        insertionSortRec(A, start+1, end) # 시작위치 오른쪽으로 한칸 옮기고 재귀 호출
