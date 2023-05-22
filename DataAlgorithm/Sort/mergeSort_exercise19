@@ -1,0 +1,28 @@
+#mergeSortFast - 연습문제 19
+def mergeSortFast(A:list, p:int, q:int): # p : 시작, q : 끝
+    if p < q: # 시작 인덱스가 끝 인덱스보다 작을 때
+        mid = (p+q) // 2 # 중간 부분의 인덱스
+        mergeSortFast(A, p, mid) # 시작부터 중간을 정렬(재귀호출)
+        mergeSortFast(A, mid+1, q) # 중간부터 끝을 정렬(재귀호출)
+        merge2(A, p, mid+1, q) # 정렬된 리스트끼리 병합
+
+def merge2(A:list, l, r, end): # 병합 함수(l = 왼쪽 시작 부분, r = 오른쪽 시작 부분)
+    merged = [] # 병합된 리스트를 저장하는 변수
+    i, j = l, r # i, j 시작값 설정
+    while i < r and j <= end: # i와 j가 정해진 구역의 마지막에 갈 때까지 반복
+        if A[i] <= A[j]: # 왼쪽 구역의 원소가 오른쪽 구역의 원소보다 작으면
+            merged.append(A[i]) # 왼쪽 구역의 원소를 merged에 대입
+            i += 1 # i를 1 증가시킨다.
+        else: # 오른쪽 구역의 원소보다 크면
+            merged.append(A[j]) # 오른쪽 구역의 원소를 대입
+            j += 1 # j를 1 증가시킨다.
+    while i < r: # 왼쪽 구역에 원소가 남은 경우
+        merged.append(A[i]) # 모두 그대로 merged에 대입
+        i += 1 # i를 1 증가시킨다.
+    while j <= end: # 오른쪽 구역에 원소가 남은 경우
+        merged.append(A[j]) # 모두 그대로 merged에 대입
+        j += 1 # j를 1 증가시킨다.
+    i = l # i를 맨 앞으로 바꾼다.
+    for n in merged: # 다시 A 리스트에 merged의 내용 대입
+        A[i] = n
+        i += 1
